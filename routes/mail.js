@@ -56,3 +56,5 @@ router.post("/send/:email", async (req, res) => {
     smtpTransport.close();
   });
 });
+
+module.exports = router;
