@@ -3,8 +3,14 @@ const router = express.Router();
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 
-const config = require("../config");
+// const config = require("../config");
 const URL = "http://ec2-34-229-71-178.compute-1.amazonaws.com";
+
+const config = {
+  encryption_key: process.env.ENCRYPTION_KEY,
+  vi: process.env.VI,
+  googlePwd: process.env.GOOGLE_PWD,
+};
 
 // 04.08 / 입력받은 메일 암호화
 function encrypt(plainEmail) {
