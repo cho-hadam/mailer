@@ -3,14 +3,16 @@ const router = express.Router();
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 
-// const config = require("../config");
-const URL = "http://ec2-34-229-71-178.compute-1.amazonaws.com";
+const { template } = require("../views/template");
 
-const config = {
-  encryption_key: process.env.ENCRYPTION_KEY,
-  vi: process.env.VI,
-  googlePwd: process.env.GOOGLE_PWD,
-};
+const config = require("../config");
+const URL = "https://duzzle.emirim.kr";
+
+// const config = {
+//   encryption_key: process.env.ENCRYPTION_KEY,
+//   vi: process.env.VI,
+//   googlePwd: process.env.GOOGLE_PWD,
+// };
 
 // 04.08 / 입력받은 메일 암호화
 function encrypt(plainEmail) {
@@ -36,14 +38,14 @@ router.post("/send/:email", async (req, res) => {
   });
 
   const { email } = req.params;
-  var hash = encrypt(email);
-  var link = URL + "/confirmRegister/" + encodeURIComponent(hash);
+  const hash = encrypt(email);
+  const link = URL + "/confirmRegister/" + encodeURIComponent(hash);
 
   const mailOptions = {
     from: "DuzzleManager@gmail.com",
     to: email,
     subject: "Duzzle 회원가입 인증 메일",
-    html: `<h1>Duzzle 회원가입 인증</h1><p><a href=${link}>${link}</a>`,
+    html: template(email, link),
   };
 
   await smtpTransport.sendMail(mailOptions, (err, result) => {
