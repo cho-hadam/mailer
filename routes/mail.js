@@ -5,14 +5,14 @@ const crypto = require("crypto");
 
 const { template } = require("../views/template");
 
-const config = require("../config");
+// const config = require("../config");
 const URL = "https://duzzle.emirim.kr";
 
-// const config = {
-//   encryption_key: process.env.ENCRYPTION_KEY,
-//   vi: process.env.VI,
-//   googlePwd: process.env.GOOGLE_PWD,
-// };
+const config = {
+  encryption_key: process.env.ENCRYPTION_KEY,
+  vi: process.env.VI,
+  googlePwd: process.env.GOOGLE_PWD,
+};
 
 // 04.08 / 입력받은 메일 암호화
 function encrypt(plainEmail) {
